@@ -29,12 +29,18 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
 
     @Override
     public int getStatus() throws RemoteException {
-        
+        if(!logik.erSpilletSlut())
+            return IGalgeleg.STATUS_IGANG;
+        else
+            if(logik.erSpilletVundet())
+                return IGalgeleg.STATUS_VUNDET;
+            else
+                return IGalgeleg.STATUS_TABT;      
     }
 
     @Override
     public int guessLetter(char letter) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        logik.gætBogstav(String.valueOf(letter));
     }
 
     @Override

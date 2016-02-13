@@ -16,6 +16,9 @@ public interface IGalgeleg extends java.rmi.Remote{
     static final int STATUS_VUNDET = 2;
     static final int STATUS_TABT = 4;
     static final int STATUS_IGANG = 8;
+    static final int STATUS_LETTER_WRONG = 16;
+    static final int STATUS_LETTER_CORRECT = 32;
+    static final int STATUS_LETTER_USED = 64;
     
     String getVisibleWord() throws java.rmi.RemoteException;
     int getStatus() throws java.rmi.RemoteException;
