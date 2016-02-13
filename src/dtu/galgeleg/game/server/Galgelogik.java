@@ -1,4 +1,4 @@
-package galgeleg;
+package dtu.galgeleg.game.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
