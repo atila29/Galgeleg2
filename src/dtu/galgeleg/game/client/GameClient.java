@@ -27,7 +27,11 @@ public class GameClient {
             String temp = "";
             ArrayList<String> usedLetters = galgeleg.getUsedLetters();
             for (int i = 0; i < usedLetters.size(); i++) {
-                temp += temp + "," + usedLetters.get(i);
+                if (i == 0) {
+                    temp = usedLetters.get(0);
+                } else {
+                    temp += " ," + usedLetters.get(i);
+                }
             }
             System.out.println("Brugte bogstaver: " + temp);
             System.out.println("Gæt ved at indtaste et bogstav og afslut med enter:");
@@ -40,14 +44,14 @@ public class GameClient {
             int guessValue = galgeleg.guessLetter(guess.charAt(0));
 
             switch (guessValue) {
-                case IGalgeleg.STATUS_LETTER_CORRECT:
+                case IGalgeleg.STATUS_LETTER_WRONG:
                     System.out.println("Bogstavet " + guess + " var forkert.");
                     break;
                 case IGalgeleg.STATUS_LETTER_USED:
                     System.out.println("Bogstavet " + guess + " er allerede brugt.");
                     break;
-                case IGalgeleg.STATUS_LETTER_WRONG:
-                    System.out.println("Bigstavet " + guess + " var korrekt.");
+                case IGalgeleg.STATUS_LETTER_CORRECT:
+                    System.out.println("Bogstavet " + guess + " var korrekt.");
                     break;
                 default:
                     break;
