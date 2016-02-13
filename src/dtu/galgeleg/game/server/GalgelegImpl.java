@@ -41,16 +41,22 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
     @Override
     public int guessLetter(char letter) throws RemoteException {
         logik.gætBogstav(String.valueOf(letter));
+        if(logik.getBrugteBogstaver().contains(String.valueOf(letter)))
+            return IGalgeleg.STATUS_LETTER_USED;
+        else if(logik.erSidsteBogstavKorrekt())
+            return IGalgeleg.STATUS_LETTER_CORRECT;
+        else
+            return IGalgeleg.STATUS_LETTER_WRONG;
     }
 
     @Override
     public ArrayList<String> getUsedLetters() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return logik.getBrugteBogstaver();
     }
 
     @Override
     public void resetGame() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        logik.nulstil();
     }
     
 }
