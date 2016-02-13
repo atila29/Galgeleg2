@@ -13,7 +13,7 @@ import java.rmi.Naming;
  */
 public class GalgeServer {
     public static void main(String[] arg) throws Exception{
-        java.rmi.registry.LocateRegistry.createRegistry(9912);
+        java.rmi.registry.LocateRegistry.createRegistry(1099);
         GalgelegImpl g = new GalgelegImpl();
         Naming.rebind("rmi://localhost/galgelegnexus", g);
         System.out.println("GalgeServer spiller max");

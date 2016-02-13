@@ -40,10 +40,10 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
 
     @Override
     public int guessLetter(char letter) throws RemoteException {
-        logik.gætBogstav(String.valueOf(letter));
         if(logik.getBrugteBogstaver().contains(String.valueOf(letter)))
             return IGalgeleg.STATUS_LETTER_USED;
-        else if(logik.erSidsteBogstavKorrekt())
+        logik.gætBogstav(String.valueOf(letter));
+        if(logik.erSidsteBogstavKorrekt())
             return IGalgeleg.STATUS_LETTER_CORRECT;
         else
             return IGalgeleg.STATUS_LETTER_WRONG;
