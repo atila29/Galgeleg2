@@ -5,10 +5,16 @@
  */
 package dtu.galgeleg.game;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author champen
+ * @author herErEtNavn
  */
-public interface IGalgeleg {
-    
+public interface IGalgeleg extends java.rmi.Remote{
+    String getVisibleWord() throws java.rmi.RemoteException;
+    int getStatus() throws java.rmi.RemoteException;
+    int guessLetter(char letter) throws java.rmi.RemoteException;
+    ArrayList<String> getUsedLetters() throws java.rmi.RemoteException;
+    void resetGame() throws java.rmi.RemoteException;
 }
