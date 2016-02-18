@@ -5,6 +5,7 @@
  */
 package dtu.galgeleg.game;
 
+import brugerautorisation.data.Bruger;
 import java.util.ArrayList;
 
 /**
@@ -25,4 +26,7 @@ public interface IGalgeleg extends java.rmi.Remote{
     int guessLetter(char letter) throws java.rmi.RemoteException;
     ArrayList<String> getUsedLetters() throws java.rmi.RemoteException;
     void resetGame() throws java.rmi.RemoteException;
+    
+    Bruger login(String username, String password) throws java.rmi.RemoteException;
+    
 }

@@ -5,21 +5,41 @@
  */
 package dtu.galgeleg.game.server;
 
+import brugerautorisation.data.Bruger;
 import dtu.galgeleg.game.IGalgeleg;
+import brugerautorisation.transport.rmi.*;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
  * @author kongerne
  */
 public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
+    Brugeradmin ba;
 
+    
+    
     private Galgelogik logik;
     
     public GalgelegImpl() throws java.rmi.RemoteException {
         logik = new Galgelogik();
+        
+        try {
+            ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
+        } catch (NotBoundException ex) {
+            Logger.getLogger(GalgelegImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GalgelegImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     @Override
@@ -57,6 +77,11 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
     @Override
     public void resetGame() throws RemoteException {
         logik.nulstil();
+    }
+
+    @Override
+    public Bruger login(String username, String password) throws RemoteException {
+        return ba.hentBruger(username, password);
     }
     
 }
