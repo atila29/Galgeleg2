@@ -27,6 +27,8 @@ public interface IGalgeleg extends java.rmi.Remote{
     ArrayList<String> getUsedLetters() throws java.rmi.RemoteException;
     void resetGame() throws java.rmi.RemoteException;
     
+    void newCheckedWord(String s) throws java.rmi.RemoteException;
+    
     Bruger login(String username, String password) throws java.rmi.RemoteException;
     
 }

@@ -8,6 +8,8 @@ package dtu.galgeleg.game.server;
 import brugerautorisation.data.Bruger;
 import dtu.galgeleg.game.IGalgeleg;
 import brugerautorisation.transport.rmi.*;
+import dtu.galgeleg.game.server.galgespellchecker.GalgeSpellChecker;
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -25,12 +27,14 @@ import java.util.logging.Logger;
 public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
     Brugeradmin ba;
 
-    
-    
     private Galgelogik logik;
+    
     
     public GalgelegImpl() throws java.rmi.RemoteException {
         logik = new Galgelogik();
+       
+        
+        
         try {
             ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
         } catch (NotBoundException ex) {
@@ -38,6 +42,8 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
         } catch (MalformedURLException ex) {
             Logger.getLogger(GalgelegImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
 
     }
     
@@ -81,6 +87,26 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
     @Override
     public Bruger login(String username, String password) throws RemoteException {
         return ba.hentBruger(username, password);
+    }
+    
+    private void setRandomWordToLogik(String[] words) throws NoSuchFieldException, IllegalAccessException {
+        int index = (int)(Math.random()*words.length);
+        String nytord = words[index];
+        
+        Field s = logik.getClass().getDeclaredField("ordet");
+        s.setAccessible(true);
+        s.set(logik, nytord);
+    }
+
+    @Override
+    public void newCheckedWord(String s) throws RemoteException {
+        try {
+            setRandomWordToLogik(GalgeSpellChecker.getCorrectWords(s));
+        } catch (NoSuchFieldException ex) {
+            Logger.getLogger(GalgelegImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(GalgelegImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
