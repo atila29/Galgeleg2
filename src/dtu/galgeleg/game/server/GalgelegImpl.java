@@ -31,7 +31,6 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
     
     public GalgelegImpl() throws java.rmi.RemoteException {
         logik = new Galgelogik();
-        
         try {
             ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
         } catch (NotBoundException ex) {
