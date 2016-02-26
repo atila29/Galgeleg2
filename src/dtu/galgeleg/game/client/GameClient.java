@@ -5,7 +5,9 @@
  */
 package dtu.galgeleg.game.client;
 
+import brugerautorisation.data.Bruger;
 import dtu.galgeleg.game.IGalgeleg;
+import java.io.Console;
 import java.rmi.Naming;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -13,17 +15,32 @@ import java.util.ArrayList;
 public class GameClient {
 
     public void run() throws Exception {
-        
+
         IGalgeleg galgeleg = (IGalgeleg) Naming.lookup("rmi://localhost/galgelegnexus");
         galgeleg.resetGame();
-        
+
         Scanner sc = new Scanner(System.in);
         boolean spilletErIgang = true;
 
+        boolean loggedin = false;
+
+        do {
+            try {
+                System.out.println("Indtast dit brugernavn:");
+                String brugernavn = sc.nextLine();
+                System.out.println("Indtast dit kodeord:");
+                String kodeord = sc.nextLine();
+                Bruger bruger = galgeleg.login(brugernavn, kodeord);
+                loggedin = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!loggedin);
+
         while (spilletErIgang) {
-            
+
             System.out.println(galgeleg.getVisibleWord());
-            
+
             String temp = "";
             ArrayList<String> usedLetters = galgeleg.getUsedLetters();
             for (int i = 0; i < usedLetters.size(); i++) {
@@ -63,21 +80,21 @@ public class GameClient {
                 } else if (galgeleg.getStatus() == IGalgeleg.STATUS_TABT) {
                     System.out.println("Desværre, du tabte!");
                 }
-                
+
                 System.out.println("Vil du spille igen y/n?");
                 String answer = sc.nextLine();
-                
+
                 while (answer.length() != 1) {
                     System.out.println("Vil du spille igen y/n?");
                     answer = sc.nextLine();
                 }
-                
+
                 if (!answer.equals("y")) {
                     spilletErIgang = false;
                 } else {
                     galgeleg.resetGame();
-                }     
-            } 
+                }
+            }
         }
     }
 
