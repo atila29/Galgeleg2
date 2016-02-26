@@ -34,5 +34,41 @@
         </wsimport-option>
       </wsimport-options>
     </client>
+    <client name="check_1">
+      <wsdl-url>http://wsf.cdyne.com/SpellChecker/check.asmx?wsdl</wsdl-url>
+      <local-wsdl-file>wsf.cdyne.com/SpellChecker/check.asmx.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">dtu.galgeleg.game.server.galgespellchecker</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://wsf.cdyne.com/SpellChecker/check.asmx?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>dtu.galgeleg.game.server.galgespellchecker</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
   </clients>
 </jax-ws>

@@ -23,6 +23,7 @@ public class GameClient {
         boolean spilletErIgang = true;
 
         boolean loggedin = false;
+        int round = 0;
 
         do {
             try {
@@ -38,7 +39,13 @@ public class GameClient {
         } while (!loggedin);
 
         while (spilletErIgang) {
-
+            if (round == 0) {
+                System.out.println("Indtast et engelsk ord:");
+                String word = sc.nextLine();
+                galgeleg.newCheckedWord(word);
+            }
+            
+            
             System.out.println(galgeleg.getVisibleWord());
 
             String temp = "";
@@ -73,6 +80,8 @@ public class GameClient {
                 default:
                     break;
             }
+            
+            round++;
 
             if (!(galgeleg.getStatus() == IGalgeleg.STATUS_IGANG)) {
                 if (galgeleg.getStatus() == IGalgeleg.STATUS_VUNDET) {
@@ -92,6 +101,7 @@ public class GameClient {
                 if (!answer.equals("y")) {
                     spilletErIgang = false;
                 } else {
+                    round = 0;
                     galgeleg.resetGame();
                 }
             }

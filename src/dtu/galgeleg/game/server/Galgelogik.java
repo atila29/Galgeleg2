@@ -31,6 +31,10 @@ public class Galgelogik {
   public String getOrdet() {
     return ordet;
   }
+  
+  public void setOrdet(String s) {
+      ordet = s;
+  }
 
   public int getAntalForkerteBogstaver() {
     return antalForkerteBogstaver;

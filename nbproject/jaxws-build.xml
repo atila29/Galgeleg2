@@ -4,7 +4,7 @@
         *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
         *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
 
-        --><project xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:xalan="http://xml.apache.org/xslt" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
@@ -33,5 +33,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/check"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/com/cdyne/ws"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-check"/>
+    <target name="wsimport-client-check_1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/check_1"/>
+        <property name="wsdl-check_1" location="xml-resources/web-service-references/check_1/wsdl/wsf.cdyne.com/SpellChecker/check.asmx.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/check_1" destdir="${build.generated.dir}/jax-wsCache/check_1" wsdl="${wsdl-check_1}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://wsf.cdyne.com/SpellChecker/check.asmx?wsdl" xnocompile="true" xendorsed="true" package="dtu.galgeleg.game.server.galgespellchecker">
+            <depends file="${wsdl-check_1}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/check_1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/check_1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-check_1" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/check_1"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/dtu/galgeleg/game/server/galgespellchecker"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-check, wsimport-client-check_1"/>
 </project>

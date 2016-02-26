@@ -92,6 +92,7 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
     private void setRandomWordToLogik(String[] words) throws NoSuchFieldException, IllegalAccessException {
         int index = (int)(Math.random()*words.length);
         String nytord = words[index];
+        logik.setOrdet(nytord);
         
         Field s = logik.getClass().getDeclaredField("ordet");
         s.setAccessible(true);
