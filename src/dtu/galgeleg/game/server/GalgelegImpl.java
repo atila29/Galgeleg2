@@ -94,9 +94,9 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
         String nytord = words[index];
         logik.setOrdet(nytord);
         
-        Field s = logik.getClass().getDeclaredField("ordet");
-        s.setAccessible(true);
-        s.set(logik, nytord);
+        //Field s = logik.getClass().getDeclaredField("ordet");
+        //s.setAccessible(true);
+        //s.set(logik, nytord);
     }
 
     @Override
@@ -107,6 +107,8 @@ public class GalgelegImpl extends UnicastRemoteObject implements IGalgeleg{
             Logger.getLogger(GalgelegImpl.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
             Logger.getLogger(GalgelegImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(IllegalArgumentException e) {
+            logik.setOrdet("&&&");
         }
     }
     

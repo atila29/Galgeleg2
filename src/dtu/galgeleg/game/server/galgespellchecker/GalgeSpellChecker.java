@@ -6,7 +6,7 @@
 package dtu.galgeleg.game.server.galgespellchecker;
 
 import com.cdyne.ws.DocumentSummary;
-import galgespellchecker.Words;
+import java.util.List;
 
 /**
  *
@@ -15,15 +15,23 @@ import galgespellchecker.Words;
 public class GalgeSpellChecker {
 
     /**
+     * @param word
      * @param args the command line arguments
+     * @return 
      */
     
-    public static String[] getCorrectWords(String word) {
+    public static String[] getCorrectWords(String word) throws IllegalArgumentException {
         DocumentSummary doc = checkTextBodyV2(word);
+        List<String> temp = null;
         for(com.cdyne.ws.Words w : doc.getMisspelledWord()) {
-            return (String[])w.getSuggestions().toArray();
+            temp = w.getSuggestions();
         }
-        return null;
+        
+        if(temp == null)
+            throw new IllegalArgumentException("Fejl : ikke muligt at rette ordet!");
+        String[] ar = new String[temp.size()];
+        ar = temp.toArray(ar);
+        return ar;
     }
 
     private static DocumentSummary checkTextBodyV2(java.lang.String bodyText) {
